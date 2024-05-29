@@ -1,0 +1,8 @@
+POST https://lv.blumbit.net/back/public/api/v1/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "admin@mail.com",
+    "password": "admin54321"
+}

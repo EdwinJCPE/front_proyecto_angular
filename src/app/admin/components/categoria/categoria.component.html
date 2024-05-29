@@ -1,1 +1,42 @@
-<p>categoria works!</p>
+<h1>Gestión Categorías</h1>
+
+{{ categorias }}
+
+<input type="text" name="nombre" [(ngModel)]="categoria.nombre">
+<input type="text" name="detalle" [(ngModel)]="categoria.detalle">
+
+<button (click)="funGuardarCategoria()">Guardar Categoría</button>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>NOMBRE</th>
+      <th>DETALLE</th>
+      <th>ACCIÓN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- <tr *ngFor="let categoria of categorias">
+      <td>{{ categoria.id }}</td>
+      <td>{{ categoria.nombre }}</td>
+      <td>{{ categoria.detalle }}</td>
+      <td>
+        <a [routerLink]="['/categorias', categoria.id]">Ver</a>
+      </td>
+    </tr> -->
+
+    @for (cat of categorias; track $index) {
+      <tr>
+        <td>{{ cat.id }}</td>
+        <td>{{ cat.nombre }}</td>
+        <td>{{ cat.detalle }}</td>
+        <td>
+          <button>Editar</button>
+          <button>Eliminar</button>
+        </td>
+      </tr>
+    }
+
+  </tbody>
+</table>

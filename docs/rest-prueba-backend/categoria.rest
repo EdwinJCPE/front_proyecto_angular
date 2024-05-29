@@ -1,0 +1,27 @@
+GET https://lv.blumbit.net/back/public/api/categoria
+Accept: application/json
+Authorization: Bearer 211|nENdRsZO2dXMUIpN77Ky8FdRLBZdSThZJRRSfrb3f5e43097
+
+###
+
+POST https://lv.blumbit.net/back/public/api/categoria
+Accept: application/json
+Content-Type: : application/json
+Authorization: Bearer 58|6HGNwU1Y1MgER09UoVqXx3jPDlIn9kgyMPevCay865dc1ef8
+
+{
+    "nombre": "PINTUTAS",
+    "detalle": "Prueba desde angular"
+}
+
+###
+
+PUT https://lv.blumbit.net/back/public/api/categoria/4
+Accept: application/json
+Content-Type: : application/json
+Authorization: Bearer 58|6HGNwU1Y1MgER09UoVqXx3jPDlIn9kgyMPevCay865dc1ef8
+
+{
+    "nombre": "PINTURAS",
+    "detalle": "Prueba desde angular modificado"
+}
