@@ -7,12 +7,14 @@ import { CategoriaComponent } from './components/categoria/categoria.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '../core/core.module';
 import { FormsModule } from '@angular/forms';
+import { ProductoComponent } from './components/producto/producto.component';
 
 
 @NgModule({
   declarations: [
     PerfilComponent,
-    CategoriaComponent
+    CategoriaComponent,
+    ProductoComponent
   ],
   imports: [
     CommonModule,

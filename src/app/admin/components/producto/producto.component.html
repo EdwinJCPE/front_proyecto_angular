@@ -1,0 +1,35 @@
+<h1>Productos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>NOMBRE</th>
+      <th>PRECIO</th>
+      <th>STOCK</th>
+      <th>ACCION</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of productos; track $index) {
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.precio }}</td>
+        <td>{{ item.stock }}</td>
+        <td>
+          <a [routerLink]="['/productos', item.id]">Ver</a>
+        </td>
+      </tr>
+    }
+    <!-- <tr *ngFor="let producto of productos">
+      <td>{{ producto.id }}</td>
+      <td>{{ producto.nombre }}</td>
+      <td>{{ producto.precio }}</td>
+      <td>{{ producto.stock }}</td>
+      <td>
+        <a [routerLink]="['/productos', producto.id]">Ver</a>
+      </td>
+    </tr> -->
+  </tbody>
+</table>

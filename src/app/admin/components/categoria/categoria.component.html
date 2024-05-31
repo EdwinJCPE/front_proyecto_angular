@@ -32,8 +32,8 @@
         <td>{{ cat.nombre }}</td>
         <td>{{ cat.detalle }}</td>
         <td>
-          <button>Editar</button>
-          <button>Eliminar</button>
+          <button (click)="funEditarCategoria(cat)">Editar</button>
+          <button (click)="funEliminarCategoria(cat)">Eliminar</button>
         </td>
       </tr>
     }

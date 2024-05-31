@@ -25,18 +25,49 @@ export class CategoriaComponent {
       (error) => {
         console.log(error)
       }
-    )
+    );
   }
 
   funGuardarCategoria() {
-    this.categoriaService.guardarCategoria(this.categoria).subscribe(
-      (res: any) => {
-        console.log(res)
-        this.funGetCategorias();
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
+    if (this.categoria.id) { // Id debe tener un dato para editar categoria
+      this.categoriaService.modificarCategoria(this.categoria.id, this.categoria).subscribe(
+        (res: any) => {
+          this.categorias = res;
+          console.log(this.categorias)
+        },
+        (error) => {
+          console.log(error)
+        }
+      );
+    } else {
+      this.categoriaService.guardarCategoria(this.categoria).subscribe(
+        (res: any) => {
+          console.log(res)
+          this.funGetCategorias();
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+    }
+
+    this.categoria = {};
+  }
+
+  funEditarCategoria(cat: any) {
+    this.categoria = cat;
+  }
+
+  funEliminarCategoria(cat: any) {
+    if (confirm("¿Esta seguro de eliminar la categoria?")) {
+      this.categoriaService.eliminarCategoria(cat.id).subscribe(
+        (res: any) => {
+          this.funGetCategorias();
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+    }
   }
 }
