@@ -1,1 +1,13 @@
-<p>login works!</p>
+<h1>Ingresar</h1>
+<form [formGroup]="loginForm">
+  <label for="">Ingrese su Correo:</label>
+  <input type="email" name="" id="" formControlName="email">
+  <br>
+  <label for="">Ingrese su Contraseña:</label>
+  <input type="password" name="" id="" formControlName="password">
+  <br>
+  <input type="button" value="Ingresar" (click)="funIngresar()" [disabled]="!loginForm.valid">
+</form>
+{{ loginForm.value | json }}
+
+<h5>ES VALIDO?: {{ loginForm.valid }}</h5>

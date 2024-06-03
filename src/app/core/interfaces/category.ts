@@ -1,5 +1,5 @@
-export interface Categoria {
-	id: number;
+export interface Category {
+  id: number;
 	nombre: string;
 	detalle: string;
 	deleted_at?: any;

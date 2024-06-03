@@ -4,8 +4,8 @@ import { CategoriaService } from './services/categoria.service';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { ProductoService } from './services/producto.service';
-
-
+import { AuthService } from './services/auth.service';
+import { CategoryService } from './services/category.service';
 
 @NgModule({
   declarations: [],
@@ -13,7 +13,7 @@ import { ProductoService } from './services/producto.service';
     CommonModule
   ],
   providers: [
-    CategoriaService, ProductoService
+    CategoriaService, CategoryService, ProductoService, AuthService
     // provideHttpClient(withInterceptors([authInterceptor]))
   ]
 })

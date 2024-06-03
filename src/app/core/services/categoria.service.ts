@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,8 @@ import { Injectable, inject } from '@angular/core';
 export class CategoriaService {
 
   // http2 = inject(HttpClient)
-  urlBase: string = "https://lv.blumbit.net/back/public/api";
+  // urlBase: string = "https://lv.blumbit.net/back/public/api";
+  urlBase: string = environment.apiUrl;
 
   // headers: HttpHeaders = new HttpHeaders({
   //   'Content-Type': 'application/json',

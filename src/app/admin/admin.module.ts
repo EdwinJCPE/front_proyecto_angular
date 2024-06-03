@@ -8,12 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '../core/core.module';
 import { FormsModule } from '@angular/forms';
 import { ProductoComponent } from './components/producto/producto.component';
+import { CategoryComponent } from './components/category/category.component';
 
 
 @NgModule({
   declarations: [
     PerfilComponent,
     CategoriaComponent,
+    CategoryComponent,
     ProductoComponent
   ],
   imports: [
