@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +13,11 @@ export class LoginComponent {
   // loginForm: FormGroup;
   loginForm!: FormGroup;
 
+  // router = inject(Router);
   authService = inject(AuthService);
 
   // constructor() {}
-  constructor(fb: FormBuilder) {
+  constructor(fb: FormBuilder, private router: Router) {
   // constructor(fb: FormBuilder, private authService: AuthService) {
     // this.loginForm = fb.group({
     //   email: fb.control('', [Validators.required, Validators.email]),
@@ -43,10 +46,20 @@ export class LoginComponent {
       (res: any) => {
         console.log("LOGIN ****:", res)
         localStorage.setItem('access_token', res.access_token);
-        // this.authService.setToken(res.token);
+        this.router.navigate(['/admin/categoria']);
+        // this.router.navigateByUrl('/admin/categoria');
+
       },
       (error) => {
-        console.log(error)
+        // console.log(error)
+        console.log(error.error.message);
+
+        Swal.fire({
+          title: 'Error!',
+          text: error.error.message,
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        })
       }
     )
 
