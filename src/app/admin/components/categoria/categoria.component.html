@@ -1,23 +1,46 @@
-<h1>Gestión Categorías</h1>
+<div class="card">
+  <h1>Gestión de Categorías</h1>
+  <p-table [value]="categorias" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-sm">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Detalle</th>
+        <th>Gestión</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-categoria>
+      <tr>
+        <td>{{ categoria.id }}</td>
+        <td>{{ categoria.nombre }}</td>
+        <td>{{ categoria.detalle }}</td>
+        <td>
 
-{{ categorias }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 
-<input type="text" name="nombre" [(ngModel)]="categoria.nombre">
-<input type="text" name="detalle" [(ngModel)]="categoria.detalle">
+  <hr />
 
-<button (click)="funGuardarCategoria()">Guardar Categoría</button>
+  <!-- {{ categorias }} -->
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>NOMBRE</th>
-      <th>DETALLE</th>
-      <th>ACCIÓN</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- <tr *ngFor="let categoria of categorias">
+  <input type="text" name="nombre" [(ngModel)]="categoria.nombre" />
+  <input type="text" name="detalle" [(ngModel)]="categoria.detalle" />
+
+  <button (click)="funGuardarCategoria()">Guardar Categoría</button>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>DETALLE</th>
+        <th>ACCIÓN</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <tr *ngFor="let categoria of categorias">
       <td>{{ categoria.id }}</td>
       <td>{{ categoria.nombre }}</td>
       <td>{{ categoria.detalle }}</td>
@@ -26,7 +49,7 @@
       </td>
     </tr> -->
 
-    @for (cat of categorias; track $index) {
+      @for (cat of categorias; track $index) {
       <tr>
         <td>{{ cat.id }}</td>
         <td>{{ cat.nombre }}</td>
@@ -36,7 +59,7 @@
           <button (click)="funEliminarCategoria(cat)">Eliminar</button>
         </td>
       </tr>
-    }
-
-  </tbody>
-</table>
+      }
+    </tbody>
+  </table>
+</div>

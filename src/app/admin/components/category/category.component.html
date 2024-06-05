@@ -1,23 +1,24 @@
-<h1>Gestión Categorías</h1>
+<div class="card">
+  <h1>Category Management</h1>
 
-{{ categories }}
+  <!-- {{ categories }} -->
 
-<input type="text" name="nombre" [(ngModel)]="category.nombre">
-<input type="text" name="detalle" [(ngModel)]="category.detalle">
+  <input type="text" name="nombre" [(ngModel)]="category.nombre" />
+  <input type="text" name="detalle" [(ngModel)]="category.detalle" />
 
-<button (click)="fnSaveCategory()">Guardar Categoría</button>
+  <button (click)="fnSaveCategory()">Guardar Categoría</button>
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>NOMBRE</th>
-      <th>DETALLE</th>
-      <th>ACCIÓN</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- <tr *ngFor="let categoria of categorias">
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>DETALLE</th>
+        <th>ACCIÓN</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <tr *ngFor="let categoria of categorias">
       <td>{{ categoria.id }}</td>
       <td>{{ categoria.nombre }}</td>
       <td>{{ categoria.detalle }}</td>
@@ -26,7 +27,7 @@
       </td>
     </tr> -->
 
-    @for (cat of categories; track $index) {
+      @for (cat of categories; track $index) {
       <tr>
         <td>{{ cat.id }}</td>
         <td>{{ cat.nombre }}</td>
@@ -36,7 +37,7 @@
           <button (click)="fnDeleteCategory(cat)">Eliminar</button>
         </td>
       </tr>
-    }
-
-  </tbody>
-</table>
+      }
+    </tbody>
+  </table>
+</div>

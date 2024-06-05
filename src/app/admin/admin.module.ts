@@ -9,7 +9,8 @@ import { CoreModule } from '../core/core.module';
 import { FormsModule } from '@angular/forms';
 import { ProductoComponent } from './components/producto/producto.component';
 import { CategoryComponent } from './components/category/category.component';
-
+import { AppLayoutModule } from '../layout/app.layout.module';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,10 @@ import { CategoryComponent } from './components/category/category.component';
     AdminRoutingModule,
     HttpClientModule,
     CoreModule,
-    FormsModule
+    FormsModule,
+    AppLayoutModule,
+
+    TableModule
   ]
 })
 export class AdminModule { }
