@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Category } from '../../../core/interfaces/category';
 import { CategoryService } from '../../../core/services/category.service';
 import { catchError, of, tap } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-category',
@@ -11,6 +12,7 @@ import { catchError, of, tap } from 'rxjs';
 export class CategoryComponent {
   categories: Category[] = [];
   category: Category = {} as Category; // Inicializar la interfaz
+  visible: boolean = false;
 
   categoryService = inject(CategoryService)
   // constructor(private categoryService: CategoryService) { }
@@ -46,6 +48,7 @@ export class CategoryComponent {
         })
       ).subscribe();
 
+    this.visible = false;
     this.category = {} as Category;
   }
 
@@ -54,16 +57,47 @@ export class CategoryComponent {
   }
 
   fnDeleteCategory(category: Category): void {
-    if (confirm("¿Está seguro de eliminar la categoría?")) {
-      this.categoryService.deleteCategory(category.id)
-        .pipe(
-          tap(() => this.fnGetAllCategory()),
-          catchError(error => {
-            console.error(error);
-            // Retorna un observable que emite `null` y se completa
-            return of(null);
-          })
-        ).subscribe();
-    }
+    // if (confirm("¿Está seguro de eliminar la categoría?")) {
+    //   this.categoryService.deleteCategory(category.id)
+    //     .pipe(
+    //       tap(() => this.fnGetAllCategory()),
+    //       catchError(error => {
+    //         console.error(error);
+    //         // Retorna un observable que emite `null` y se completa
+    //         return of(null);
+    //       })
+    //     ).subscribe();
+    // }
+
+    Swal.fire({
+      title: `¿Esta seguro que desea eliminar la categoria con ID: ${category.id}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Si",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.categoryService.deleteCategory(category.id).subscribe(
+          (res: any) => {
+            this.fnGetAllCategory();
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
+
+      } else if (result.isDenied) {
+      }
+    });
+  }
+
+  newOpenDialog() {
+    this.category = {} as Category;
+    this.visible = true;
+  }
+
+  editOpenDialog(category: Category) {
+    this.category = { ...category };
+    this.visible = true;
   }
 }

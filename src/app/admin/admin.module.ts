@@ -10,7 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { ProductoComponent } from './components/producto/producto.component';
 import { CategoryComponent } from './components/category/category.component';
 import { AppLayoutModule } from '../layout/app.layout.module';
-import { TableModule } from 'primeng/table';
+import { PrimeModule } from '../prime/prime.module';
+// import { TableModule } from 'primeng/table';
+// import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { TableModule } from 'primeng/table';
     FormsModule,
     AppLayoutModule,
 
-    TableModule
+    // TableModule,
+    // ButtonModule
+    PrimeModule
   ]
 })
 export class AdminModule { }

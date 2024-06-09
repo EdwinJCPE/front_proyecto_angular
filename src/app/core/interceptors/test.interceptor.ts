@@ -1,6 +1,6 @@
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 // import { Observable } from 'rxjs/internal/Observable';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router'
 import { Injectable } from '@angular/core';
 
@@ -27,18 +27,45 @@ export class TestInterceptor implements HttpInterceptor {
     });
 
     // return next.handle(peticion)
+    // return next.handle(peticion).pipe(tap(() => {}, // El operador tap no tiene una firma que maneje errores directamente
+    //   (error: any) => {
+    //     if (error instanceof HttpErrorResponse) {
+    //       if (error.status !== 401) {
+    //         return;
+    //       }
 
+    //       localStorage.removeItem('access_token');
+
+    //       this.router.navigate(['auth/login']);
+    //     }
+    //   }
+    //   ))
+
+    // En su lugar, deberías usar tap para efectos secundarios en las emisiones de datos y catchError para manejar errores.
     return next.handle(peticion).pipe(
-      catchError((err: HttpErrorResponse) => {
-
-        if (err.status === 401) {
-          this.router.navigateByUrl('auth/login');
+      tap(() => {
+        // Aquí puedes realizar efectos secundarios en las emisiones exitosas
+      }),
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          localStorage.removeItem('access_token');
+          this.router.navigate(['auth/login']);
         }
-
-        return throwError( err );
-
+        return throwError(() => error);
       })
     );
+
+    // return next.handle(peticion).pipe(
+    //   catchError((err: HttpErrorResponse) => {
+
+    //     if (err.status === 401) {
+    //       this.router.navigateByUrl('auth/login');
+    //     }
+
+    //     return throwError( err );
+
+    //   })
+    // );
 
   }
 

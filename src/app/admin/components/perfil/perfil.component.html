@@ -1,1 +1,11 @@
-<p>perfil works!</p>
+<h1>Mi Perfil</h1>
+<div class="card">
+  <!-- {{ perfil | json }} -->
+
+  <div *ngIf="perfil">
+    <h3>NOMBRE: {{ perfil.name }}</h3>
+    <h3>CORREO: {{ perfil.email }}</h3>
+    <h3>FECHA DE CREACIÓN: {{ perfil.created_at }}</h3>
+    <p-button label="Salir" (click)="funSalir()"/>
+  </div>
+</div>
