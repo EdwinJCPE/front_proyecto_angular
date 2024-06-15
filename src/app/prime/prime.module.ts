@@ -7,6 +7,21 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RippleModule } from 'primeng/ripple';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ToastModule } from 'primeng/toast';
+
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DropdownModule } from 'primeng/dropdown';
+import { TagModule } from 'primeng/tag';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { RatingModule } from 'primeng/rating';
+import { FormsModule } from '@angular/forms';
+import { InputNumberModule } from 'primeng/inputnumber';
+
+import { LazyLoadEvent } from 'primeng/api';
 
 const modulos = [
   TableModule,
@@ -15,7 +30,18 @@ const modulos = [
   CheckboxModule,
   DialogModule,
   InputTextModule,
-  InputTextareaModule
+  InputTextareaModule,
+  RippleModule,
+  ToolbarModule,
+  ToastModule,
+  ConfirmDialogModule,
+  FileUploadModule,
+  DropdownModule,
+  TagModule,
+  RadioButtonModule,
+  RatingModule,
+  FormsModule,
+  InputNumberModule,
 ];
 
 @NgModule({
@@ -30,6 +56,10 @@ const modulos = [
     // TableModule,
     // ButtonModule
     modulos
+  ],
+  providers: [
+    ConfirmationService,
+    MessageService
   ]
 })
 export class PrimeModule { }

@@ -1,13 +1,31 @@
 <div class="card">
   <h1>Category Management</h1>
 
-  <div class="mb-3">
-    <p-button label="Nuevo" (click)="newOpenDialog()" />
-  </div>
+  <p-toast></p-toast>
+  <p-toolbar styleClass="mb-3">
+    <ng-template pTemplate="left">
+        <!-- <div class="my-2"> -->
+        <div>
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary mr-2" (click)="newOpenDialog()"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedCategories()" [disabled]="!selectedCategories || !selectedCategories.length"></button>
+        </div>
+    </ng-template>
+</p-toolbar>
 
-  <p-table [value]="categories" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-sm">
+  <!-- <div class="mb-3">
+    <p-button label="Nuevo" (click)="newOpenDialog()" />
+  </div> -->
+
+  <p-table
+    [value]="categories"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [(selection)]="selectedCategories"
+    styleClass="p-datatable-sm">
     <ng-template pTemplate="header">
       <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
         <th>ID</th>
         <th>Nombre</th>
         <th>Detalle</th>
@@ -16,6 +34,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-category>
       <tr>
+        <td>
+          <p-tableCheckbox [value]="category"></p-tableCheckbox>
+        </td>
         <td>{{ category.id }}</td>
         <td>{{ category.nombre }}</td>
         <td>{{ category.detalle }}</td>
@@ -105,5 +126,16 @@
       <p-button label="Cancelar" severity="secondary" (click)="visible = false" />
       <p-button label="Guardar" (click)="fnSaveCategory()" />
   </div>
+</p-dialog>
+
+<p-dialog [(visible)]="deleteCategoriesDialog" header="Confirmar" [modal]="true" [style]="{width:'450px'}">
+  <div class="flex align-items-center justify-content-center">
+      <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+      <span>¿Está seguro de que desea eliminar los productos seleccionados?</span>
+  </div>
+  <ng-template pTemplate="footer">
+      <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteCategoriesDialog = false"></button>
+      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="confirmDeleteSelected()"></button>
+  </ng-template>
 </p-dialog>
 

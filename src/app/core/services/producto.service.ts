@@ -11,8 +11,10 @@ export class ProductoService {
 
   constructor(private http: HttpClient) { }
 
-  listarProductos() {
+  // listarProductos() {
+  listarProductos(page: number, limit: number) {
     // return this.http.get(this.urlBase + "/producto");
-    return this.http.get(`${this.urlBase}/producto`)
+    // return this.http.get(`${this.urlBase}/producto`)
+    return this.http.get(`${this.urlBase}/producto?page=${page}&limit=${limit}`)
   }
 }
