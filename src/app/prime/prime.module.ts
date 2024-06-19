@@ -20,7 +20,6 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
-
 import { LazyLoadEvent } from 'primeng/api';
 
 const modulos = [

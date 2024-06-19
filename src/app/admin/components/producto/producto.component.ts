@@ -5,14 +5,23 @@ import { Categoria } from '../../../core/interfaces/categoria';
 // import { Product } from '../../../core/interfaces/product';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 // import { TableLazyLoadEvent } from 'primeng/table';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable'
 
 interface Producto {
-  id?: number;
+  // id?: number;
+  id: number;
   nombre: string;
   precio: number;
   descripcion: string;
   imagen: string;
-  stock: number
+  stock: number;
+  categoria: Categoria;
+}
+
+interface UploadEvent {
+  originalEvent: Event;
+  files: File[];
 }
 
 @Component({
@@ -37,6 +46,10 @@ export class ProductoComponent implements OnInit {
   totalRecords: number = 0;
   loading: boolean = false;
 
+  imagenProductoDialog: boolean = false;
+  uploadedFiles: any[] = [];
+  filterProduct: string = '';
+
   // productoService = inject(ProductoService)
   // categoriaService = inject(CategoriaService)
   // messageService = inject(MessageService)
@@ -53,9 +66,9 @@ export class ProductoComponent implements OnInit {
   }
 
   // getProductos(page: number, limit: number) {
-  getProductos(page: number = 1, limit: number = 10) {
+  getProductos(page: number = 1, limit: number = 10, q: string = "") {
     this.loading = true;
-    this.productoService.listarProductos(page, limit).subscribe(
+    this.productoService.listarProductos(page, limit, q).subscribe(
       (res: any) => {
         console.log(res)
         this.productos = res.data;
@@ -136,7 +149,7 @@ export class ProductoComponent implements OnInit {
         accept: () => {
             this.productos = this.productos.filter((val) => !this.selectedProductos?.includes(val));
             this.selectedProductos = null;
-            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+            this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Products Deleted', life: 3000 });
         }
     });
 }
@@ -154,10 +167,71 @@ export class ProductoComponent implements OnInit {
         accept: () => {
             this.productos = this.productos.filter((val) => val.id !== producto.id);
             this.producto = {} as Producto;
-            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+            this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Product Deleted', life: 3000 });
         }
     });
   }
 
+  actualizaImagen(producto: Producto) {
+    this.producto = {...producto };
+    this.imagenProductoDialog = true;
+  }
 
+  subirImagen(event: any) {
+    console.log(event);
+    // this.uploadedFiles = event.files;
+
+    let formData = new FormData()
+    formData.append('imagen', event.files[0]);
+    this.productoService.actualizaImagen(this.producto.id, formData).subscribe(
+      (res: any) => {
+        console.log(res)
+        // this.producto.imagen = res.imagen;
+        this.imagenProductoDialog = false;
+        this.producto = {} as Producto;
+        this.uploadedFiles = [];
+        this.messageService.add({ severity:'success', summary: 'Éxito', detail: 'Imagen Subida', life: 3000 });
+        this.getProductos();
+      },
+      (error) => {
+        console.log(error)
+      }
+    );
+
+  }
+
+  exportarPdf() {
+    const doc = new jsPDF();
+
+    const filas = this.productos.map(item => {
+      return [item.id, item.nombre, item.precio, item.stock, item.categoria?.nombre]
+    })
+
+    console.log(filas);
+
+    // const filas = this.productos.map(item => [item.id, item.nombre, item.precio, item.stock, item.categoria.nombre])
+
+    autoTable(doc, {
+      head: [['ID', 'Nombre', 'Precio', 'Stock', 'Categoría']],
+      body: filas
+    })
+
+    doc.save('a4.pdf')
+  }
+
+  // buscar() {
+  //   this.getProductos(1, 10, this.filterProduct)
+  // }
+
+  // buscar(event: KeyboardEvent) {
+  //   if (event.key === 'Enter') {
+  //     this.getProductos(1, 10, this.filterProduct)
+  //   }
+  // }
+
+  onEnter() {
+    if (this.filterProduct.length > 3) {
+      this.getProductos(1, 10, this.filterProduct)
+    }
+  }
 }

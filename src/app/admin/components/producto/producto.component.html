@@ -29,8 +29,15 @@
         <p-button
             pRipple
             severity="help"
+            label="Exportar Pdf"
+            (click)="exportarPdf()"
+            icon="pi pi-upload"
+            class="mr-2 inline-block" />
+        <!-- <p-button
+            pRipple
+            severity="help"
             label="Exportar"
-            icon="pi pi-upload" />
+            icon="pi pi-upload" /> -->
     </ng-template>
 </p-toolbar>
 
@@ -56,10 +63,24 @@
                 <h5 class="m-0">Gestión Productos</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
+                    <!-- <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="filterProduct"
+                        (input)="buscar()"
+                        placeholder="Buscar..." /> -->
+                    <!-- <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="filterProduct"
+                        (keydown)="buscar($event)"
+                        placeholder="Buscar..." /> -->
                     <input
                         pInputText
                         type="text"
-                        placeholder="Search..." />
+                        [(ngModel)]="filterProduct"
+                        (keydown.enter)="onEnter()"
+                        placeholder="Buscar..." />
                 </span>
             </div>
         </ng-template>
@@ -113,6 +134,14 @@
                 <td>
                     <p-button
                         pRipple
+                        icon="pi pi-image"
+                        class="mr-2"
+                        [rounded]="true"
+                        [outlined]="true"
+                        severity="success"
+                        (click)="actualizaImagen(producto)" />
+                    <p-button
+                        pRipple
                         icon="pi pi-pencil"
                         class="mr-2"
                         [rounded]="true"
@@ -135,6 +164,38 @@
             </div>
         </ng-template>
     </p-table>
+
+    <!-- <p-dialog header="Edit Profile" [modal]="true" [(visible)]="imagenProductoDialog" [style]="{ width: '25rem' }"> -->
+    <p-dialog header="Actualizar Imagen" [modal]="true" [(visible)]="imagenProductoDialog" [style]="{ width: '32rem' }">
+      <!-- <span class="p-text-secondary block mb-5">Actualizar Imagen</span> -->
+
+      <!-- <div class="card flex justify-content-center"> -->
+          <!-- <p-toast /> -->
+          <p-fileUpload
+              name="demo[]"
+              [customUpload]="true"
+              (uploadHandler)="subirImagen($event)"
+              chooseLabel="Seleccionar"
+              uploadLabel="Subir"
+              cancelLabel="Cancelar"
+              accept="image/*">
+          </p-fileUpload>
+          <!-- <p-fileUpload
+              name="demo[]"
+              [customUpload]="true"
+              (uploadHandler)="subirImagen($event)"
+              [multiple]="true"
+              accept="image/*">
+                  <ng-template pTemplate="content">
+                      <ul *ngIf="uploadedFiles.length">
+                          <li *ngFor="let file of uploadedFiles">
+                              {{ file.name }} - {{ file.size }} bytes
+                          </li>
+                      </ul>
+                  </ng-template>
+          </p-fileUpload> -->
+        <!-- </div> -->
+    </p-dialog>
 
     <p-confirmDialog [style]="{ width: '450px' }" />
 </div>

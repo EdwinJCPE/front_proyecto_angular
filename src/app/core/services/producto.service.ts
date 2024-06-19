@@ -12,9 +12,14 @@ export class ProductoService {
   constructor(private http: HttpClient) { }
 
   // listarProductos() {
-  listarProductos(page: number, limit: number) {
+  listarProductos(page: number, limit: number, q: string) {
     // return this.http.get(this.urlBase + "/producto");
     // return this.http.get(`${this.urlBase}/producto`)
-    return this.http.get(`${this.urlBase}/producto?page=${page}&limit=${limit}`)
+    return this.http.get(`${this.urlBase}/producto?page=${page}&limit=${limit}&q=${q}`)
+  }
+
+  // actualizaImagen(id: number, formData: any) {
+  actualizaImagen(id: number, formData: FormData) {
+    return this.http.post(`${this.urlBase}/producto/${id}/carga-imagen`, formData);
   }
 }
